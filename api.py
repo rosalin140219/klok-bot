@@ -207,6 +207,7 @@ Issued At: {formatted_time}"""
         logger.info(f"Successfully get models: {response.text}")
         models = response.json()
         active_models = [item["name"] for item in models if item["active"]]
+        logger.info(f"Successfully get models: {active_models}")
         return active_models
 
     # 获取分数详情

@@ -5,17 +5,8 @@ from api import Klok
 import config
 from loguru import logger
 
-if __name__ == '__main__':
-    private_keys = []
-    with open("private_keys.txt") as f:
-        for line in f:
-            line = line.strip()
-            private_keys.append(line)
 
-    # 读取questions.txt文件中的问题
-    with open("questions.txt") as f:
-        questions = f.readlines()
-
+def process(private_keys, questions):
     klok = Klok(private_key=private_keys[0], referral_code=config.referral_code)
     # 校验klok推特
     twitter_klok_completed = klok.twitter_klok_completed()
@@ -41,7 +32,7 @@ if __name__ == '__main__':
         # 如果剩余次数为0，则等待rate_limit['reset']秒后再次请求
         if remaining <= 0:
             logger.warning("Rate limit exceeded, please try again later.")
-            break
+            return rate_limit['reset']
         # 随机选择问题
         question = random.choice(questions).strip()
         # 回复问题
@@ -50,3 +41,24 @@ if __name__ == '__main__':
         messages.append({"role": "assistant", "content": response})
         # 休眠1-10秒
         time.sleep(random.randint(1, 10))
+
+
+if __name__ == '__main__':
+    private_keys = []
+    with open("private_keys.txt") as f:
+        for line in f:
+            line = line.strip()
+            private_keys.append(line)
+    # 读取questions.txt文件中的问题
+    with open("questions.txt") as f:
+        questions = f.readlines()
+    while True:
+        reset = process(private_keys, questions)
+        if reset:
+            logger.info("Rate limit exceeded, waiting for {} seconds...".format(reset))
+            time.sleep(reset)
+        else:
+            time.sleep(100)
+
+
+
