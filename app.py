@@ -32,7 +32,7 @@ def process(private_keys, questions):
         # 如果剩余次数为0，则等待rate_limit['reset']秒后再次请求
         if remaining <= 0:
             logger.warning("Rate limit exceeded, please try again later.")
-            return rate_limit['reset']
+            return rate_limit['reset_time']
         # 随机选择问题
         question = random.choice(questions).strip()
         # 回复问题
