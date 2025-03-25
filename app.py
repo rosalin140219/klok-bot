@@ -54,7 +54,7 @@ if __name__ == '__main__':
         questions = f.readlines()
     while True:
         reset = process(private_keys, questions)
-        if reset:
+        if reset and reset > 0:
             logger.info("Rate limit exceeded, waiting for {} seconds...".format(reset))
             time.sleep(reset)
         else:
