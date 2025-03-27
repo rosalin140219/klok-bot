@@ -4,6 +4,8 @@ import uuid
 from datetime import datetime, timezone
 
 from urllib.parse import urlparse
+
+from eth_account import Account
 from eth_account.messages import encode_defunct
 import secrets
 from web3 import Web3
@@ -56,19 +58,19 @@ class AsyncKlok:
         }
 
     async def verify(self):
-        # Initialize async Web3
-        w3 = Web3(
-            AsyncHTTPProvider(infura_url),
-            modules={'eth': (AsyncEth,)},
-            middlewares=[]
-        )
-
-        # Check connection
-        if not await w3.is_connected():
-            raise Exception("Failed to connect to Ethereum node")
+        # # Initialize async Web3
+        # w3 = Web3(
+        #     AsyncHTTPProvider(infura_url),
+        #     modules={'eth': (AsyncEth,)},
+        #     middlewares=[]
+        # )
+        #
+        # # Check connection
+        # if not await w3.is_connected():
+        #     raise Exception("Failed to connect to Ethereum node")
 
         # Load account
-        account = w3.eth.account.from_key(self.private_key)
+        account = Account.from_key(self.private_key)
         self.address = account.address
 
         # Generate random Nonce
