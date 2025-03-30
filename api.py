@@ -5,6 +5,7 @@ import uuid
 
 import aiohttp
 import requests
+from eth_account import Account
 from web3 import Web3
 from eth_account.messages import encode_defunct
 import secrets
@@ -40,16 +41,15 @@ class Klok(object):
 
     # 登录验证
     def verify(self):
-        # 1. 连接到以太坊节点（这里使用 Infura 作为示例）
-        w3 = Web3(Web3.HTTPProvider(infura_url))
-
-        # 检查是否连接成功
-        if not w3.is_connected():
-            raise Exception("Failed to connect to Ethereum node")
+        # # 1. 连接到以太坊节点（这里使用 Infura 作为示例）
+        # w3 = Web3(Web3.HTTPProvider(infura_url))
+        #
+        # # 检查是否连接成功
+        # if not w3.is_connected():
+        #     raise Exception("Failed to connect to Ethereum node")
 
         # 2. 加载钱包私钥
-        private_key = self.private_key  # 替换为你的私钥
-        account = w3.eth.account.from_key(private_key)
+        account = Account.from_key(self.private_key)
         self.address = account.address
 
         # 3. 生成随机 Nonce
