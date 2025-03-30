@@ -74,7 +74,7 @@ Issued At: {formatted_time}"""
         # 4. 将消息编码为以太坊签名格式
         encoded_message = encode_defunct(text=message)
         # 5. 对消息进行签名
-        signed_message = account.sign_message(encoded_message, private_key=self.private_key)
+        signed_message = account.sign_message(encoded_message)
 
         # 6. 组装request对象
         payload = {
