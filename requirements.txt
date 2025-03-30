@@ -70,7 +70,6 @@ ledgerblue==0.1.48
 ledgereth==0.9.0
 libusb1==3.2.0
 litellm==0.1.719
-llama_cpp_python==0.2.6
 loguru==0.7.2
 lru-dict==1.2.0
 markdown-it-py==3.0.0
@@ -106,10 +105,6 @@ pydantic_core==2.20.1
 pyDes==2.0.1
 pyelftools==0.31
 Pygments==2.16.1
-pyobjc-core==10.3.2
-pyobjc-framework-Cocoa==10.3.2
-pyobjc-framework-CoreBluetooth==10.3.2
-pyobjc-framework-libdispatch==10.3.2
 pypika-tortoise==0.2.1
 pyserial==3.5
 pytest==8.3.4
