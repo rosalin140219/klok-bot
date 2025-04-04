@@ -25,6 +25,7 @@ class AsyncKlok:
         self.address = None
         self.session_token = None
         self.proxies = {"http": proxy, "https": proxy}
+        self.session = AsyncSession(impersonate="chrome124", verify=False)  # 创建一次，重复使用
         if proxy:
             parsed = urlparse(proxy)
             # 提取认证信息
@@ -99,9 +100,9 @@ Issued At: {formatted_time}"""
         }
         # request_kwargs = self._prepare_proxy()
 
-        session = AsyncSession(impersonate="chrome124", verify=False)
+        # session = AsyncSession(impersonate="chrome124", verify=False)
 
-        response = await session.post(
+        response = await self.session.post(
             "https://api1-pp.klokapp.ai/v1/verify",
             json=payload,
             headers=self.headers,
@@ -187,8 +188,8 @@ Issued At: {formatted_time}"""
         headers["Anonymousid"] = base64.b64encode(anonymousId.encode('utf-8')).decode('utf-8')
         headers["Authorization"] = "Basic MnQ5eFZ0RXVRalJneU9tQThMM0M5NU9odEhHOg=="
         # request_kwargs = self._prepare_proxy()
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.post(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.post(
                 "https://arohalabssxygl.dataplane.rudderstack.com/v1/track",
                 json=payload,
                 headers=headers,
@@ -207,8 +208,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.get(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.get(
                 "https://api1-pp.klokapp.ai/v1/me",
                 headers=headers,
                 proxies=self.proxies
@@ -227,8 +228,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.get(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.get(
                 "https://api1-pp.klokapp.ai/v1/models",
                 headers=headers,
                 proxies=self.proxies
@@ -248,8 +249,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.get(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.get(
                 "https://api1-pp.klokapp.ai/v1/points",
                 headers=headers,
                 proxies=self.proxies
@@ -268,8 +269,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.get(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.get(
                 "https://api1-pp.klokapp.ai/v1/referral/stats",
                 headers=headers,
                 proxies=self.proxies
@@ -288,8 +289,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.get(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.get(
                 "https://api1-pp.klokapp.ai/v1/rate-limit",
                 headers=headers,
                 proxies=self.proxies
@@ -308,8 +309,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.get(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.get(
                 "https://api1-pp.klokapp.ai/v1/points/action/twitter_klok",
                 headers=headers,
                 proxies=self.proxies
@@ -329,8 +330,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.get(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.get(
                 "https://api1-pp.klokapp.ai/v1/points/action/twitter_mira",
                 headers=headers,
                 proxies=self.proxies
@@ -350,8 +351,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.get(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.get(
                 "https://api1-pp.klokapp.ai/v1/points/action/discord",
                 headers=headers,
                 proxies=self.proxies
@@ -371,8 +372,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.post(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.post(
                 "https://api1-pp.klokapp.ai/v1/points/action/twitter_klok",
                 headers=headers,
                 proxies=self.proxies
@@ -390,8 +391,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.post(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.post(
                 "https://api1-pp.klokapp.ai/v1/points/action/twitter_mira",
                 headers=headers,
                 proxies=self.proxies
@@ -409,8 +410,8 @@ Issued At: {formatted_time}"""
 
         headers = self.headers.copy()
         headers["x-session-token"] = self.session_token
-        session = AsyncSession(impersonate="chrome124", verify=False)
-        response = await session.post(
+        # session = AsyncSession(impersonate="chrome124", verify=False)
+        response = await self.session.post(
                 "https://api1-pp.klokapp.ai/v1/points/action/discord",
                 headers=headers,
                 proxies=self.proxies
