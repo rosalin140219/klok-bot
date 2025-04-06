@@ -468,3 +468,6 @@ Issued At: {formatted_time}"""
         except Exception as e:
             logger.error(f'Error: {e}')
             return full_response
+
+    async def close(self):
+        await self.session.close()

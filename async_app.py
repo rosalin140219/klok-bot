@@ -46,7 +46,7 @@ async def process_account(private_key: str, proxy: str, questions: list):
             response = await klok.chat(messages, random.choice(models))
             messages.append({"role": "assistant", "content": response})
             await asyncio.sleep(random.uniform(1, 10))  # 使用异步sleep
-
+        await klok.close()
     except Exception as e:
         logger.error(f"Error processing {private_key[:6]}...: {str(e)}")
 
