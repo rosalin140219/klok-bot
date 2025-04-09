@@ -45,7 +45,7 @@ async def process_account(private_key: str, proxy: str, questions: list):
             messages.append({"role": "user", "content": question})
             response = await klok.chat(messages, random.choice(models))
             messages.append({"role": "assistant", "content": response})
-            await asyncio.sleep(random.uniform(1, 10))  # 使用异步sleep
+            await asyncio.sleep(random.uniform(10, 20))  # 使用异步sleep
         await klok.close()
     except Exception as e:
         logger.error(f"Error processing {private_key[:6]}...: {str(e)}")
@@ -64,7 +64,7 @@ async def main():
 
     # 确保代理足够（循环使用）
     proxies = proxies * (len(private_keys) // len(proxies) + 1)
-
+    semaphore = asyncio.Semaphore(config.semaphore)
     # 创建并发任务
     tasks = [
         process_account(private_key, proxy, questions)
@@ -72,7 +72,7 @@ async def main():
     ]
 
     async def limited_task(task):
-        async with config.semaphore:
+        async with semaphore:
             return await task
 
     # 分批运行任务（避免内存爆炸）
